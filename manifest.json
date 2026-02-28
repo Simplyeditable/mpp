@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Metro patrol / deployment parser",
+  "version": "2.0",
+  "description": "Patrol logs, deployment finder, and deployment time calculator for LSPD forums.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "host_permissions": [
+    "*://lspd.gta.world/*"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "lspdofficertools@example.com",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ],
+        "optional": []
+      }
+    }
+  }
+}

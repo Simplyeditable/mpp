@@ -26,3 +26,10 @@ Installation guide:
 5. Navigate into the unzipped folder and select `manifest.json`
 
 > ⚠️ **Important:** Firefox does not allow permanent unsigned extensions. The extension will disappear every time you close Firefox and you'll need to repeat steps 2–5 each time.
+
+
+
+## Firefox (Permanent)
+1. Donwload:
+https://addons.mozilla.org/firefox/downloads/file/4708995/00564b9ca29b4814a7cd-2.0.xpi
+Enable

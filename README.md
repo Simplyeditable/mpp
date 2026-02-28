@@ -5,11 +5,11 @@ Patrol logs, deployment finder, and deployment time calculator for GTAW LSPD for
 
 Installation guide: 
 
-  Chrome: 
-    Download the folder
-    Go to chrome://extensions
-    Enable Developer mode (top right toggle)
-    Click Load unpacked → select the folder
+  *Chrome: 
+    *Download the folder
+    *Go to chrome://extensions
+    *Enable Developer mode (top right toggle)
+    *Click Load unpacked → select the folder
 
     *This is permament unless you move the location of the downloaded folder
 

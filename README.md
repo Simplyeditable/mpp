@@ -5,19 +5,24 @@ Patrol logs, deployment finder, and deployment time calculator for GTAW LSPD for
 
 Installation guide: 
 
-  *Chrome: 
-    *Download the folder
-    *Go to chrome://extensions
-    *Enable Developer mode (top right toggle)
-    *Click Load unpacked → select the folder
+## Chrome
 
-    *This is permament unless you move the location of the downloaded folder
+1. Download and unzip the folder somewhere permanent (e.g. `Documents/LSPD Tools`) — don't leave it in Downloads
+2. Go to `chrome://extensions` in the address bar
+3. Toggle **Developer mode** on (top right)
+4. Click **Load unpacked** → select the unzipped folder
+5. Done — the extension appears in your toolbar and stays there permanently
 
-  Firefox:
-    Download and unzip the folder somewhere on your PC
-    Go to about:debugging in the address bar
-    Click This Firefox on the left
-    Click Load Temporary Add-on
-    Navigate into the unzipped folder and select manifest.json
+> ⚠️ **Important:** If you ever move or rename the folder, Chrome will disable the extension and you'll need to load it again from the new location.
 
-    *This is not permanent, you will need to do it every time you restart Firefox.
+---
+
+## Firefox (Normal)
+
+1. Download and unzip the folder somewhere on your PC
+2. Go to `about:debugging` in the address bar
+3. Click **This Firefox** on the left
+4. Click **Load Temporary Add-on**
+5. Navigate into the unzipped folder and select `manifest.json`
+
+> ⚠️ **Important:** Firefox does not allow permanent unsigned extensions. The extension will disappear every time you close Firefox and you'll need to repeat steps 2–5 each time.

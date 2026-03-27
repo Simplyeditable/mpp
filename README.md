@@ -7,7 +7,7 @@ Installation guide:
 
 ## Chrome
 
-1. Download and unzip the folder somewhere permanent (e.g. `Documents/LSPD Tools`) — don't leave it in Downloads
+1. Download and unzip the folder somewhere permanent (e.g. `Downloads/MPP`)
 2. Go to `chrome://extensions` in the address bar
 3. Toggle **Developer mode** on (top right)
 4. Click **Load unpacked** → select the unzipped folder

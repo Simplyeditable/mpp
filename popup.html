@@ -2,6 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <!-- FIX #8: Content Security Policy — blocks any injected scripts in the popup -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { width: 340px; font-family: sans-serif; background: #f5f7fa; }
@@ -60,14 +63,6 @@
         }
         .copy-btn:hover { background: #004494; }
 
-        /* ── Summary box (overtime) ── */
-        .summary-box {
-            background: #0f2940; color: white; border-radius: 6px;
-            padding: 10px 14px; margin-bottom: 10px;
-        }
-        .summary-box .total { font-size: 22px; font-weight: bold; }
-        .summary-box .sub { font-size: 11px; opacity: 0.75; margin-top: 2px; }
-
         /* ── Table ── */
         table {
             width: 100%; border-collapse: collapse; background: white;
@@ -95,28 +90,22 @@
     <div class="tab-bar">
         <button class="active" data-tab="patrols">PATROLS</button>
         <button data-tab="deployments">DEPLOYMENTS</button>
-        <button data-tab="overtime">OVERTIME</button>
     </div>
 
     <!-- PATROLS -->
     <div id="tab-patrols" class="panel active">
-        <input type="text" id="p-name" placeholder="e.g. Javier Ramos">
+        <!-- FIX #7: maxlength prevents oversized input from being serialised into executeScript -->
+        <input type="text" id="p-name" placeholder="e.g. Javier Ramos" maxlength="80">
         <button class="go-btn" id="p-btn">Generate BBCode</button>
         <div class="results" id="p-results"></div>
     </div>
 
     <!-- DEPLOYMENTS -->
     <div id="tab-deployments" class="panel">
-        <input type="text" id="d-name" placeholder="e.g. Javier Ramos">
+        <!-- FIX #7: maxlength prevents oversized input from being serialised into executeScript -->
+        <input type="text" id="d-name" placeholder="e.g. Javier Ramos" maxlength="80">
         <button class="go-btn" id="d-btn">Search</button>
         <div class="results" id="d-results"></div>
-    </div>
-
-    <!-- OVERTIME -->
-    <div id="tab-overtime" class="panel">
-        <input type="text" id="o-name" placeholder="e.g. Javier Ramos">
-        <button class="go-btn" id="o-btn">Calculate</button>
-        <div class="results" id="o-results"></div>
     </div>
 
     <script src="popup.js"></script>

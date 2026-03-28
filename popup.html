@@ -2,30 +2,22 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <!-- FIX #8: Content Security Policy — blocks any injected scripts in the popup -->
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { width: 340px; font-family: sans-serif; background: #f5f7fa; }
 
+        /* ── Spinner keyframe ── */
+        @keyframes spin { to { transform: rotate(360deg); } }
+
         /* ── Tab bar ── */
-        .tab-bar {
-            display: flex;
-            background: #0f2940;
-        }
+        .tab-bar { display: flex; background: #0f2940; }
         .tab-bar button {
-            flex: 1;
-            padding: 10px 4px;
-            background: none;
-            border: none;
-            color: rgba(255,255,255,0.55);
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: color 0.15s, border-color 0.15s;
-            letter-spacing: 0.3px;
+            flex: 1; padding: 10px 4px; background: none; border: none;
+            color: rgba(255,255,255,0.55); font-size: 11px; font-weight: bold;
+            cursor: pointer; border-bottom: 3px solid transparent;
+            transition: color 0.15s, border-color 0.15s; letter-spacing: 0.3px;
         }
         .tab-bar button:hover { color: rgba(255,255,255,0.85); }
         .tab-bar button.active { color: #fff; border-bottom-color: #4da3ff; }
@@ -45,7 +37,7 @@
             border: none; border-radius: 4px; cursor: pointer;
             font-size: 13px; font-weight: bold;
         }
-        .panel .go-btn:hover { background: #1a3d5c; }
+        .panel .go-btn:hover:not(:disabled) { background: #1a3d5c; }
 
         /* ── Results area ── */
         .results { margin-top: 10px; font-size: 12px; }
@@ -69,14 +61,8 @@
             border-radius: 6px; overflow: hidden;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
-        th {
-            background: #e8ecf0; color: #333;
-            font-size: 11px; padding: 6px 8px; text-align: left;
-        }
-        td {
-            padding: 5px 8px; font-size: 11px;
-            border-bottom: 1px solid #f0f0f0; vertical-align: top;
-        }
+        th { background: #e8ecf0; color: #333; font-size: 11px; padding: 6px 8px; text-align: left; }
+        td { padding: 5px 8px; font-size: 11px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
         tr:last-child td { border-bottom: none; }
         .dur { font-weight: bold; color: #0f2940; white-space: nowrap; }
         .na  { color: #aaa; font-style: italic; }
@@ -94,7 +80,6 @@
 
     <!-- PATROLS -->
     <div id="tab-patrols" class="panel active">
-        <!-- FIX #7: maxlength prevents oversized input from being serialised into executeScript -->
         <input type="text" id="p-name" placeholder="e.g. Javier Ramos" maxlength="80">
         <button class="go-btn" id="p-btn">Generate BBCode</button>
         <div class="results" id="p-results"></div>
@@ -102,7 +87,6 @@
 
     <!-- DEPLOYMENTS -->
     <div id="tab-deployments" class="panel">
-        <!-- FIX #7: maxlength prevents oversized input from being serialised into executeScript -->
         <input type="text" id="d-name" placeholder="e.g. Javier Ramos" maxlength="80">
         <button class="go-btn" id="d-btn">Search</button>
         <div class="results" id="d-results"></div>

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Metro patrol / deployment parser",
-  "version": "2.0",
+  "version": "1.1",
   "description": "Patrol logs, deployment finder, and deployment time calculator for LSPD forums.",
   "permissions": [
     "activeTab",

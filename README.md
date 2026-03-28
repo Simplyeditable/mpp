@@ -31,5 +31,8 @@ Installation guide:
 
 ## Firefox (Permanent)
 1. Donwload:
-https://addons.mozilla.org/firefox/downloads/file/4708995/00564b9ca29b4814a7cd-2.0.xpi
+https://addons.mozilla.org/firefox/downloads/file/4743571/00564b9ca29b4814a7cd-1.1.xpi
 Enable
+
+> OLD VERSION: https://addons.mozilla.org/firefox/downloads/file/4708995/00564b9ca29b4814a7cd-2.0.xpi
+

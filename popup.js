@@ -190,8 +190,11 @@ async function runPatrols() {
     }).catch(e => { console.error(e); setButtonBusy(btn, false); setError(area, 'Something went wrong. Are you on the correct forum page?'); });
 }
 
+// ── Patrols Trigger ──
 document.getElementById('p-btn').addEventListener('click', runPatrols);
-document.getElementById('p-name').addEventListener('keydown', e => { if (e.key === 'Enter') runPatrols(); });
+document.getElementById('p-name').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); runPatrols(); }
+});
 
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -271,5 +274,8 @@ async function runDeployments() {
     }).catch(e => { console.error(e); setButtonBusy(btn, false); setError(area, 'Something went wrong. Are you on the correct forum page?'); });
 }
 
+// ── Deployments Trigger ──
 document.getElementById('d-btn').addEventListener('click', runDeployments);
-document.getElementById('d-name').addEventListener('keydown', e => { if (e.key === 'Enter') runDeployments(); });
+document.getElementById('d-name').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); runDeployments(); }
+});

@@ -132,7 +132,7 @@ async function runPatrols() {
 
             const getPaginationUrls = (doc, base) => {
                 const s = new Set(), baseOrigin = new URL(base).origin;
-                doc.querySelectorAll('.pagination a, a[href*="start="]').forEach(a => {
+                doc.querySelectorAll('.pagination a[href*="start="]').forEach(a => {
                     try { const u = new URL(a.href, base).href; if (new URL(u).origin === baseOrigin) s.add(u); } catch (_) {}
                 });
                 return [...s].filter(u => u !== base);
@@ -223,7 +223,7 @@ async function runDeployments() {
 
             const getPaginationUrls = (doc, base) => {
                 const s = new Set(), baseOrigin = new URL(base).origin;
-                doc.querySelectorAll('.pagination a, a[href*="start="]').forEach(a => {
+                doc.querySelectorAll('.pagination a[href*="start="]').forEach(a => {
                     try { const u = new URL(a.href, base).href; if (new URL(u).origin === baseOrigin) s.add(u); } catch (_) {}
                 });
                 return [...s].filter(u => u !== base);

@@ -106,6 +106,12 @@ function renderBBCode(area, data, countLabel, bbcode, copyLabel, bbId, copyId) {
     makeCopyBtn(btn, () => ta.value);
 }
 
+// ── Shared pagination helper (arithmetic — handles ellipsis gaps) ─────────────
+// Injects into the page context via the executeScript func string, so it is
+// defined as a plain function expression that can be toString()'d if needed.
+// Here we just duplicate it inside each executeScript func (closures don't
+// cross the content-script boundary).
+
 // ══════════════════════════════════════════════════════════════════════════════
 // 1. PATROLS
 // ══════════════════════════════════════════════════════════════════════════════
@@ -130,12 +136,32 @@ async function runPatrols() {
             const isSafeUrl   = url => { try { return ['https:','http:'].includes(new URL(url).protocol); } catch { return false; } };
             const fetchPage   = async url => { const r = await fetch(url, { credentials: 'same-origin' }); if (!r.ok) throw new Error(); return r.text(); };
 
+            // Arithmetic pagination: finds the step size and max offset from
+            // whatever page links ARE visible, then generates every URL in the
+            // sequence — so ellipsis-hidden pages are never skipped.
             const getPaginationUrls = (doc, base) => {
-                const s = new Set(), baseOrigin = new URL(base).origin;
+                const baseOrigin = new URL(base).origin;
+                const starts = [];
                 doc.querySelectorAll('.pagination a[href*="start="]').forEach(a => {
-                    try { const u = new URL(a.href, base).href; if (new URL(u).origin === baseOrigin) s.add(u); } catch (_) {}
+                    try {
+                        const u = new URL(a.href, base);
+                        if (new URL(u.href).origin !== baseOrigin) return;
+                        const s = parseInt(u.searchParams.get('start') || '0', 10);
+                        if (s > 0) starts.push(s);
+                    } catch (_) {}
                 });
-                return [...s].filter(u => u !== base);
+                if (!starts.length) return [];
+                const step    = Math.min(...starts);
+                const maxStart = Math.max(...starts);
+                const baseClean = new URL(base);
+                baseClean.searchParams.delete('start');
+                const urls = [];
+                for (let s = step; s <= maxStart; s += step) {
+                    const u = new URL(baseClean.href);
+                    u.searchParams.set('start', s);
+                    urls.push(u.href);
+                }
+                return urls;
             };
 
             const dedupe     = arr => { const s = new Set(); return arr.filter(i => { const k = i.link; return s.has(k) ? false : (s.add(k), true); }); };
@@ -221,12 +247,32 @@ async function runDeployments() {
             const isSafeUrl   = url => { try { return ['https:','http:'].includes(new URL(url).protocol); } catch { return false; } };
             const fetchPage   = async url => { const r = await fetch(url, { credentials: 'same-origin' }); if (!r.ok) throw new Error(); return r.text(); };
 
+            // Arithmetic pagination: finds the step size and max offset from
+            // whatever page links ARE visible, then generates every URL in the
+            // sequence — so ellipsis-hidden pages are never skipped.
             const getPaginationUrls = (doc, base) => {
-                const s = new Set(), baseOrigin = new URL(base).origin;
+                const baseOrigin = new URL(base).origin;
+                const starts = [];
                 doc.querySelectorAll('.pagination a[href*="start="]').forEach(a => {
-                    try { const u = new URL(a.href, base).href; if (new URL(u).origin === baseOrigin) s.add(u); } catch (_) {}
+                    try {
+                        const u = new URL(a.href, base);
+                        if (new URL(u.href).origin !== baseOrigin) return;
+                        const s = parseInt(u.searchParams.get('start') || '0', 10);
+                        if (s > 0) starts.push(s);
+                    } catch (_) {}
                 });
-                return [...s].filter(u => u !== base);
+                if (!starts.length) return [];
+                const step     = Math.min(...starts);
+                const maxStart = Math.max(...starts);
+                const baseClean = new URL(base);
+                baseClean.searchParams.delete('start');
+                const urls = [];
+                for (let s = step; s <= maxStart; s += step) {
+                    const u = new URL(baseClean.href);
+                    u.searchParams.set('start', s);
+                    urls.push(u.href);
+                }
+                return urls;
             };
 
             // Dedupe by date+label: catches the same deployment reposted across different page URLs
